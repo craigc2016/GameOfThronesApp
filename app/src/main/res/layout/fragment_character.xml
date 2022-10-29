@@ -1,122 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:tools="http://schemas.android.com/tools">
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:padding="16dp"
+    tools:background="@color/black"
+    android:layout_height="wrap_content">
 
-    <data>
-
-        <variable
-            name="character"
-            type="com.xdesign.takehome.models.ApiCharacter" />
-    </data>
-
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="fill_parent"
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/name"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        tools:background="@color/black"
-        android:layout_marginBottom="20dp">
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Character Name" />
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/culture"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/name"
+        android:text="@string/culture_title" />
 
-            <TextView
-                android:id="@+id/name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@{character.name, default=`Character name`}"
-                android:textAppearance="?attr/textAppearanceListItem" />
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/born"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/culture"
+        android:text="@string/born_title" />
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/died"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/born"
+        android:text="@string/died_title" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Culture:"
-                    android:textAppearance="?attr/textAppearanceListItem" />
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/seasons"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/name"
+        app:layout_constraintTop_toTopOf="@+id/name"
+        app:layout_constraintVertical_bias="0.0"
+        tools:text="Seasons" />
 
-                <View
-                    android:layout_width="16dp"
-                    android:layout_height="match_parent" />
+    <View
+        android:id="@+id/divider_line"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginTop="16dp"
+        android:background="@color/light_divider_grey"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/died" />
 
-                <TextView
-                    android:id="@+id/culture"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?attr/textAppearanceListItem"
-                    tools:text="The Culture" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Born:"
-                    android:textAppearance="?attr/textAppearanceListItem" />
-
-                <View
-                    android:layout_width="16dp"
-                    android:layout_height="match_parent" />
-
-                <TextView
-                    android:id="@+id/born"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?attr/textAppearanceListItem"
-                    tools:text="Somewhere" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Died:"
-                    android:textAppearance="?attr/textAppearanceListItem" />
-
-                <View
-                    android:layout_width="16dp"
-                    android:layout_height="match_parent" />
-
-                <TextView
-                    android:id="@+id/died"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?attr/textAppearanceListItem"
-                    tools:text="Die somewhere else" />
-            </LinearLayout>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textAlignment="viewEnd"
-                android:text="Seasons:"
-                android:textAppearance="?attr/textAppearanceListItem" />
-
-            <TextView
-                android:id="@+id/seasons"
-                android:textAlignment="viewEnd"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                tools:text="I, II, III, IV" />
-        </LinearLayout>
-    </LinearLayout>
-</layout>
+</androidx.constraintlayout.widget.ConstraintLayout>
