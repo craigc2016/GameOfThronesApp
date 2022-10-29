@@ -18,7 +18,7 @@
         tools:text="Character Name" />
 
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/culture"
+        android:id="@+id/cultureTV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
@@ -29,29 +29,29 @@
         android:text="@string/culture_title" />
 
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/born"
+        android:id="@+id/bornTV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:textColor="@color/white"
         android:textSize="14sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/culture"
+        app:layout_constraintTop_toBottomOf="@+id/cultureTV"
         android:text="@string/born_title" />
 
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/died"
+        android:id="@+id/diedTV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:textColor="@color/white"
         android:textSize="14sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/born"
+        app:layout_constraintTop_toBottomOf="@+id/bornTV"
         android:text="@string/died_title" />
 
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/seasons"
+        android:id="@+id/seasonsTV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/white"
@@ -73,6 +73,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/died" />
+        app:layout_constraintTop_toBottomOf="@+id/diedTV" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

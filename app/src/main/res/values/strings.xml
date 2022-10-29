@@ -6,5 +6,5 @@
     <string name="culture_title">Culture:</string>
     <string name="born_title">Born:</string>
     <string name="died_title">Died:</string>
-    <string name="seasons_title">Seasons \n %s</string>
+    <string name="seasons_title">Seasons \n</string>
 </resources>

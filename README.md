@@ -28,6 +28,10 @@ Requests to that endpoint will require the following header:
 - Error handling
 - Unit tests
 
+## Improvements With More Time
+I would have added unit tests.
+I would have made the search view match the designs fully.
+
 ## Submission details
 
 We would like you to fix the app's user facing issues (both documented and undocumented), add the additional search feature and submit the codebase in a more scalable state.

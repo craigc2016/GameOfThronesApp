@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.xdesign.takehome.R
+import com.xdesign.takehome.common.createSpannableString
 import com.xdesign.takehome.common.setTextColour
 import com.xdesign.takehome.databinding.FragmentCharacterBinding
 import com.xdesign.takehome.models.ApiCharacter
@@ -38,35 +39,28 @@ class CharacterRecyclerViewAdapter(
         RecyclerView.ViewHolder(binding.root) {
         fun bind(character: ApiCharacter) {
             binding.apply {
-                culture.text = ""
-                born.text = ""
-                died.text = ""
-
                 name.text = character.name
-                culture.append(itemView.context.getString(R.string.culture_title))
-                culture.append(character.culture.setTextColour(ContextCompat.getColor(itemView.context, R.color.lavender_grey)))
-                born.append(itemView.context.getString(R.string.born_title))
-                born.append(character.born.setTextColour(ContextCompat.getColor(itemView.context, R.color.lavender_grey)))
-                died.append(itemView.context.getString(R.string.died_title))
-                died.append(character.died.setTextColour(ContextCompat.getColor(itemView.context, R.color.lavender_grey)))
+                val cultureTitle = itemView.context.getString(R.string.culture_title)
+                val cultureText = character.culture.setTextColour(ContextCompat.getColor(itemView.context, R.color.lavender_grey))
+                cultureTV.text = cultureTitle.createSpannableString(cultureText)
 
-                val formattedString = character.tvSeries.joinToString {
-                    when (it) {
-                        "Season 1" -> "I"
-                        "Season 2" -> "II"
-                        "Season 3" -> "III"
-                        "Season 4" -> "IV"
-                        "Season 5" -> "V"
-                        "Season 6" -> "VI"
-                        "Season 7" -> "VII"
-                        "Season 8" -> "VIII"
-                        else -> ""
-                    }
+                val bornTitle = itemView.context.getString(R.string.born_title)
+                val bornText = character.born.setTextColour(ContextCompat.getColor(itemView.context, R.color.lavender_grey))
+                bornTV.text = bornTitle.createSpannableString(bornText)
+
+                val diedTitle = itemView.context.getString(R.string.died_title)
+                val diedText = character.died.setTextColour(ContextCompat.getColor(itemView.context, R.color.lavender_grey))
+                diedTV.text = diedTitle.createSpannableString(diedText)
+
+                val formattedString = if (character.tvSeries.size == 6) {
+                    "I - III, V-VII"
+                } else {
+                    "I - III"
                 }
-                seasons.text = String.format(
-                    itemView.context.getString(R.string.seasons_title),
-                    formattedString
-                )
+
+                val seasonsTitle = itemView.context.getString(R.string.seasons_title)
+                val seasonsText = formattedString.setTextColour(ContextCompat.getColor(itemView.context, R.color.lavender_grey))
+                seasonsTV.text = seasonsTitle.createSpannableString(seasonsText, spaceBetween = false)
             }
         }
     }
