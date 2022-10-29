@@ -5,8 +5,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.gson.GsonBuilder
+import com.xdesign.takehome.R
+import com.xdesign.takehome.common.Dialog
+import com.xdesign.takehome.common.Resource
 import com.xdesign.takehome.databinding.FragmentHomeBinding
 import com.xdesign.takehome.models.ApiCharacter
 import com.xdesign.takehome.ui.CharacterRecyclerViewAdapter
@@ -24,6 +29,8 @@ class HomeFragment : Fragment() {
 
     private var _binding : FragmentHomeBinding? = null
     private val binding get() = _binding!!
+    private val homeViewModel by viewModels<HomeViewModel>()
+    private var characterAdapter : CharacterRecyclerViewAdapter? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -36,6 +43,61 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initCharactersList()
+    }
 
+    private fun initCharactersList() {
+        homeViewModel.getCharacters()
+        homeViewModel.charactersLiveData.observe(viewLifecycleOwner) { response ->
+            when(response) {
+                is Resource.Success -> {
+                    hideProgressBar()
+                    response.data?.let {
+                        if (characterAdapter == null) {
+                            characterAdapter = CharacterRecyclerViewAdapter(response.data)
+                        } else {
+                            characterAdapter?.updateList(response.data)
+                        }
+                    }
+                    initRecyclerView()
+                }
+
+                is Resource.Error -> {
+                    hideProgressBar()
+                    response.message?.let { errorMsg ->
+                        context?.let {
+                            Dialog.show(
+                                context = it,
+                                title = it.getString(R.string.error_title),
+                                errorMsg
+                            ) { dialog ->
+                                dialog.dismiss()
+                            }
+                        }
+
+                    }
+                }
+
+                is Resource.Loading -> {
+                    showProgressBar()
+                }
+            }
+        }
+    }
+
+    private fun initRecyclerView(){
+        binding.charactersRV.apply {
+            adapter = characterAdapter
+            layoutManager = LinearLayoutManager(activity)
+        }
+    }
+
+    private fun showProgressBar() = View.VISIBLE
+
+    private fun hideProgressBar() = View.INVISIBLE
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

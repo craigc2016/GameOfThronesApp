@@ -7,7 +7,7 @@ import com.xdesign.takehome.databinding.FragmentCharacterBinding
 import com.xdesign.takehome.models.ApiCharacter
 
 class CharacterRecyclerViewAdapter(
-    private val values: List<ApiCharacter>
+    private var values: List<ApiCharacter>
 ) : RecyclerView.Adapter<CharacterRecyclerViewAdapter.CharacterViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CharacterViewHolder {
@@ -25,6 +25,11 @@ class CharacterRecyclerViewAdapter(
         holder.bind(values[position])
 
     override fun getItemCount(): Int = values.size
+
+    fun updateList(values: List<ApiCharacter>) {
+        this.values = values
+        notifyDataSetChanged()
+    }
 
     inner class CharacterViewHolder(private val binding: FragmentCharacterBinding) :
         RecyclerView.ViewHolder(binding.root) {
