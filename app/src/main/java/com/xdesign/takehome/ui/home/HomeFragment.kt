@@ -4,14 +4,18 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.gson.GsonBuilder
+import com.xdesign.takehome.MainActivity
 import com.xdesign.takehome.R
 import com.xdesign.takehome.common.Dialog
 import com.xdesign.takehome.common.Resource
+import com.xdesign.takehome.databinding.ActivityMainBinding
 import com.xdesign.takehome.databinding.FragmentHomeBinding
 import com.xdesign.takehome.models.ApiCharacter
 import com.xdesign.takehome.ui.CharacterRecyclerViewAdapter
@@ -44,6 +48,7 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initCharactersList()
+        handleSearchView()
     }
 
     private fun initCharactersList() {
@@ -85,6 +90,34 @@ class HomeFragment : Fragment() {
         }
     }
 
+    private fun handleSearchView() {
+        binding.searchView.setOnQueryTextListener(
+            object : SearchView.OnQueryTextListener,
+                androidx.appcompat.widget.SearchView.OnQueryTextListener {
+
+                override fun onQueryTextSubmit(query: String?): Boolean {
+                    if (query.isNullOrEmpty()) {
+                        initCharactersList()
+                        return false
+                    }
+                    homeViewModel.searchCharacter(query)
+                    return false
+                }
+
+                override fun onQueryTextChange(newText: String?): Boolean {
+                    if (newText.isNullOrEmpty()) {
+                        initCharactersList()
+                    }
+                    return false
+                }
+            })
+
+        binding.searchView.setOnCloseListener {
+            initCharactersList()
+            false
+        }
+    }
+
     private fun initRecyclerView(){
         binding.charactersRV.apply {
             adapter = characterAdapter
@@ -92,9 +125,13 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private fun showProgressBar() = View.VISIBLE
+    private fun showProgressBar() {
+        binding.homeProgressBar.visibility = View.VISIBLE
+    }
 
-    private fun hideProgressBar() = View.INVISIBLE
+    private fun hideProgressBar() {
+        binding.homeProgressBar.visibility = View.GONE
+    }
 
     override fun onDestroyView() {
         super.onDestroyView()

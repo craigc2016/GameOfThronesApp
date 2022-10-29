@@ -31,4 +31,17 @@ class HomeViewModel @Inject constructor(
             }
         }
     }
+
+    fun searchCharacter(name : String) {
+        try {
+            val result = _charactersLiveData.value?.data?.filter { it.name.contains(name, ignoreCase = true) }
+            if (result?.isNotEmpty() == true) {
+                _charactersLiveData.value = Resource.Success(result)
+            } else {
+                _charactersLiveData.value = Resource.Error("No Character found please search again")
+            }
+        }catch (e: Exception) {
+            _charactersLiveData.value = Resource.Error(e.message.toString())
+        }
+    }
 }
